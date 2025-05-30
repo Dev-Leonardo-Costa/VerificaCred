@@ -1,13 +1,16 @@
 package br.com.leonardocosta.mscartoes.application;
 
 import br.com.leonardocosta.mscartoes.domain.Cartao;
+import br.com.leonardocosta.mscartoes.domain.ClienteCartao;
 import br.com.leonardocosta.mscartoes.representation.CartaoRequest;
+import br.com.leonardocosta.mscartoes.representation.CartoesPorClienteResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @RestController
@@ -15,6 +18,8 @@ import java.util.List;
 public class CartoesController {
 
     private final CartaoService cartaoService;
+
+    private final ClienteCartaoService clienteCartaoService;
 
     @GetMapping
     public String status() {
@@ -32,6 +37,15 @@ public class CartoesController {
     public ResponseEntity<List<Cartao>> getCartoesRendaMenorIgual(@RequestParam("renda") Long renda) {
         List<Cartao> list = cartaoService.getCartoesRendaMenorIgual(renda);
         return ResponseEntity.ok(list);
+    }
+
+    @GetMapping(params = "cpf")
+    public ResponseEntity<List<CartoesPorClienteResponse>> getCartoesByCpf(@RequestParam("cpf") String cpf) {
+        List<ClienteCartao> lista = clienteCartaoService.getCartoesByCpf(cpf);
+        List<CartoesPorClienteResponse> resultList = lista.stream()
+                .map(CartoesPorClienteResponse::fromModel)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(resultList);
     }
 
 }
