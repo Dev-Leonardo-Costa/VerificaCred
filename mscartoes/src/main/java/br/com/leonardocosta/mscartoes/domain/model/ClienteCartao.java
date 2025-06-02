@@ -1,4 +1,4 @@
-package br.com.leonardocosta.mscartoes.domain;
+package br.com.leonardocosta.mscartoes.domain.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

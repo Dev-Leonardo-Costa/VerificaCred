@@ -1,7 +1,7 @@
-package br.com.leonardocosta.mscartoes.application;
+package br.com.leonardocosta.mscartoes.application.service;
 
-import br.com.leonardocosta.mscartoes.domain.ClienteCartao;
-import br.com.leonardocosta.mscartoes.infra.ClienteCartaoRepository;
+import br.com.leonardocosta.mscartoes.domain.model.ClienteCartao;
+import br.com.leonardocosta.mscartoes.application.port.out.ClienteCartaoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

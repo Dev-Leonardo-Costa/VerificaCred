@@ -1,7 +1,7 @@
-package br.com.leonardocosta.mscartoes.representation;
+package br.com.leonardocosta.mscartoes.representation.DTOs;
 
-import br.com.leonardocosta.mscartoes.domain.BandeiraCartao;
-import br.com.leonardocosta.mscartoes.domain.Cartao;
+import br.com.leonardocosta.mscartoes.domain.model.BandeiraCartao;
+import br.com.leonardocosta.mscartoes.domain.model.Cartao;
 import lombok.Data;
 
 import java.math.BigDecimal;

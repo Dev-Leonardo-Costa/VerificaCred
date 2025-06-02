@@ -1,6 +1,6 @@
-package br.com.leonardocosta.mscartoes.representation;
+package br.com.leonardocosta.mscartoes.representation.DTOs;
 
-import br.com.leonardocosta.mscartoes.domain.ClienteCartao;
+import br.com.leonardocosta.mscartoes.domain.model.ClienteCartao;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

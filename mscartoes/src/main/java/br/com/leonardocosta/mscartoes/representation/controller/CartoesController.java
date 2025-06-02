@@ -1,9 +1,11 @@
-package br.com.leonardocosta.mscartoes.application;
+package br.com.leonardocosta.mscartoes.representation.controller;
 
-import br.com.leonardocosta.mscartoes.domain.Cartao;
-import br.com.leonardocosta.mscartoes.domain.ClienteCartao;
-import br.com.leonardocosta.mscartoes.representation.CartaoRequest;
-import br.com.leonardocosta.mscartoes.representation.CartoesPorClienteResponse;
+import br.com.leonardocosta.mscartoes.application.port.in.CriarCartaoUseCase;
+import br.com.leonardocosta.mscartoes.application.service.ClienteCartaoService;
+import br.com.leonardocosta.mscartoes.domain.model.Cartao;
+import br.com.leonardocosta.mscartoes.domain.model.ClienteCartao;
+import br.com.leonardocosta.mscartoes.representation.DTOs.CartaoRequest;
+import br.com.leonardocosta.mscartoes.representation.DTOs.CartoesPorClienteResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +19,7 @@ import java.util.stream.Collectors;
 @RequestMapping("/cartoes")
 public class CartoesController {
 
-    private final CartaoService cartaoService;
+    private final CriarCartaoUseCase criarCartaoUseCase;
 
     private final ClienteCartaoService clienteCartaoService;
 
@@ -29,13 +31,13 @@ public class CartoesController {
     @PostMapping
     public ResponseEntity cadastrarCartao(@RequestBody CartaoRequest cartaoRequest) {
         Cartao model = cartaoRequest.toModel();
-        Cartao cartao = cartaoService.save(model);
+        Cartao cartao = criarCartaoUseCase.save(model);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @GetMapping(params = "renda")
     public ResponseEntity<List<Cartao>> getCartoesRendaMenorIgual(@RequestParam("renda") Long renda) {
-        List<Cartao> list = cartaoService.getCartoesRendaMenorIgual(renda);
+        List<Cartao> list = criarCartaoUseCase.getCartoesRendaMenorIgual(renda);
         return ResponseEntity.ok(list);
     }
 

@@ -1,6 +1,6 @@
-package br.com.leonardocosta.mscartoes.infra;
+package br.com.leonardocosta.mscartoes.application.port.out;
 
-import br.com.leonardocosta.mscartoes.domain.Cartao;
+import br.com.leonardocosta.mscartoes.domain.model.Cartao;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
