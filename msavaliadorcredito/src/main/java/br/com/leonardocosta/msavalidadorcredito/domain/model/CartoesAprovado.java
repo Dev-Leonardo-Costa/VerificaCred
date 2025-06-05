@@ -1,16 +1,14 @@
 package br.com.leonardocosta.msavalidadorcredito.domain.model;
 
-import lombok.Builder;
 import lombok.Data;
 
 import java.math.BigDecimal;
 
-@Builder
 @Data
-public class CartaoCliente {
+public class CartoesAprovado {
 
-    private String nome;
+    private String cartao;
     private String bandeira;
-    private BigDecimal limitejjLiberado;
+    private BigDecimal limiteAprovado;
 
 }

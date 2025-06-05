@@ -1,5 +1,6 @@
 package br.com.leonardocosta.msavalidadorcredito.infra.cliente;
 
+import br.com.leonardocosta.msavalidadorcredito.domain.model.Cartao;
 import br.com.leonardocosta.msavalidadorcredito.domain.model.CartaoCliente;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
@@ -15,5 +16,9 @@ public interface CartoesResouceClient {
 
     @GetMapping(params = "cpf")
     ResponseEntity<List<CartaoCliente>> getCartoesByCpf(@RequestParam("cpf") String cpf);
+
+
+    @GetMapping(params = "renda")
+    ResponseEntity<List<Cartao>> getCartoesRendaMenorIgual(@RequestParam("renda") Long renda);
 
 }
