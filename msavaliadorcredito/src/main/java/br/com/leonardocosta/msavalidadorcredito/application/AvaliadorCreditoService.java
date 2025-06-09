@@ -2,9 +2,11 @@ package br.com.leonardocosta.msavalidadorcredito.application;
 
 import br.com.leonardocosta.msavalidadorcredito.application.exception.DadosClienteNotFounfException;
 import br.com.leonardocosta.msavalidadorcredito.application.exception.ErroDeCominicacaoMicroserviceException;
+import br.com.leonardocosta.msavalidadorcredito.application.exception.ErroSolicitacaoCartaoException;
 import br.com.leonardocosta.msavalidadorcredito.domain.model.*;
 import br.com.leonardocosta.msavalidadorcredito.infra.cliente.CartoesResouceClient;
 import br.com.leonardocosta.msavalidadorcredito.infra.cliente.ClienteResouceClient;
+import br.com.leonardocosta.msavalidadorcredito.infra.cliente.mqueue.SolicitacaoEmissaoCartaoPublisher;
 import feign.FeignException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 
@@ -22,6 +25,7 @@ public class AvaliadorCreditoService {
 
     private final ClienteResouceClient clientesClient;
     private final CartoesResouceClient cartoesResouceClient;
+    private final SolicitacaoEmissaoCartaoPublisher solicitacaoEmissaoCartaoPublisher;
 
     public SituacaoCliente obterSituacaoCliente(String cpf) throws DadosClienteNotFounfException, ErroDeCominicacaoMicroserviceException {
         try {
@@ -79,6 +83,17 @@ public class AvaliadorCreditoService {
             }
 
             throw new ErroDeCominicacaoMicroserviceException(ex.getMessage(), status);
+        }
+    }
+
+    public ProtocoloSolicitacaoCartao solicitacaoEmissaoCartao(DadosSolicitacaoEmissaoCartao dados) {
+        try {
+            solicitacaoEmissaoCartaoPublisher.solicitarCartao(dados);
+            var protocolo = UUID.randomUUID().toString();
+            return new ProtocoloSolicitacaoCartao(protocolo);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new ErroSolicitacaoCartaoException(e.getMessage());
         }
     }
 }
