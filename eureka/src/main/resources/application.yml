@@ -1,6 +1,12 @@
 spring:
   aplication:
     name: eurekaserver
+  security:
+    basic:
+      enabled: true
+    user:
+      name: verificaCred
+      password: comi1bolo
 
 server:
   port: 8761

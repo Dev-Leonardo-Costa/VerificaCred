@@ -8,10 +8,12 @@ import br.com.leonardocosta.mscartoes.domain.model.DadosSolicitacaoEmissaoCartao
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 
+@Slf4j
 @RequiredArgsConstructor
 @Component
 public class EmissaoCartoesSubscriber {
@@ -33,7 +35,7 @@ public class EmissaoCartoesSubscriber {
             clienteCartaoRepository.save(clienteCartao);
 
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("Erro ao receber mensagem da fila de cartao: {}", e.getMessage());
         }
     }
 }
